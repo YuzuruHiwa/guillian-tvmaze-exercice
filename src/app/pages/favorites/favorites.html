@@ -1,0 +1,11 @@
+<h1>Mes favoris</h1>
+
+@if (favorites.shows().length === 0) {
+  <p>Aucune série en favori pour le moment.</p>
+} @else {
+  <div class="show-list">
+    @for (show of favorites.shows(); track show.id) {
+      <app-show-card [show]="show" />
+    }
+  </div>
+}

@@ -1,0 +1,25 @@
+<h1>TV Maze Explorer</h1>
+
+@if (accessRequired) {
+  <p>Active « Accès fiche » dans l’en-tête avant d’ouvrir une série.</p>
+}
+
+<form (ngSubmit)="search()">
+  <label for="show-search">Rechercher une série</label>
+  <input id="show-search" name="query" [(ngModel)]="query" />
+  <button type="submit">Rechercher</button>
+</form>
+
+@if (loading()) {
+  <p>loading...</p>
+} @else if (error()) {
+  <p role="alert">{{ error() }}</p>
+} @else if (submitted() && shows().length === 0) {
+  <p>Aucune série trouvée.</p>
+} @else if (shows().length > 0) {
+  <div class="show-list">
+    @for (show of shows(); track show.id) {
+      <app-show-card [show]="show" />
+    }
+  </div>
+}

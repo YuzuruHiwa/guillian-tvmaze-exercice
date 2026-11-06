@@ -1,0 +1,35 @@
+@if (loading()) {
+  <p>loading...</p>
+} @else if (error()) {
+  <p role="alert">{{ error() }}</p>
+} @else if (show(); as currentShow) {
+  <article>
+    <h1>{{ currentShow.name }}</h1>
+    @if (currentShow.image?.original) {
+      <img [src]="currentShow.image?.original" [alt]="currentShow.name" width="250" />
+    }
+    <p>Statut : {{ currentShow.status || 'Inconnu' }}</p>
+    <p>Genres : {{ currentShow.genres.join(', ') || 'Non renseignés' }}</p>
+    @if (currentShow.summary) {
+      <div [innerHTML]="currentShow.summary"></div>
+    } @else {
+      <p>Résumé indisponible.</p>
+    }
+    <button type="button" (click)="favorites.toggle(currentShow)">
+      {{ favorites.isFavorite(currentShow.id) ? 'Retirer des favoris' : 'Ajouter aux favoris' }}
+    </button>
+  </article>
+
+  <h2>Épisodes</h2>
+  @if (episodes().length === 0) {
+    <p>Aucun épisode disponible.</p>
+  } @else {
+    <ul>
+      @for (episode of episodes(); track episode.id) {
+        <li>
+          Saison {{ episode.season }}, épisode {{ episode.number ?? '?' }} : {{ episode.name }}
+        </li>
+      }
+    </ul>
+  }
+}

@@ -1,0 +1,9 @@
+<header>
+  <nav>
+    <a routerLink="/">TVMaze</a>
+    <a routerLink="/favorites">Favoris</a>
+    <button type="button" (click)="access.toggle()">
+      Accès fiche : {{ access.enabled() ? 'activé' : 'désactivé' }}
+    </button>
+  </nav>
+</header>

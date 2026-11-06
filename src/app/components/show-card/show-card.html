@@ -1,0 +1,11 @@
+<article>
+  <a [routerLink]="['/show', show().id]">
+    @if (show().image?.medium) {
+      <img [src]="show().image?.medium" [alt]="show().name" width="100" />
+    }
+    <h2>{{ show().name }}</h2>
+  </a>
+  <button type="button" (click)="favorites.toggle(show())">
+    {{ favorites.isFavorite(show().id) ? 'Retirer des favoris' : 'Ajouter aux favoris' }}
+  </button>
+</article>
